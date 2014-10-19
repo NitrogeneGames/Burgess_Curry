@@ -1,0 +1,81 @@
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+public class JFrameCustom extends JFrame {
+   static int defaultX = 10;
+   static int defaultY = 10;
+   static int defaultW = 150;
+   static int defaultH = 50;
+
+   public Test() {
+      super("Test");
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      // here is the outer JPanel
+      final JPanel outer = new JPanel(new BorderLayout());
+      JPanel inner = new JPanel(new BorderLayout());
+      // here is the main component we want to see
+      // when the outer panel is added to the null layout
+      JButton mainComponent = new JButton("Test");
+      inner.add("Center", mainComponent);
+      outer.add("Center", inner);
+
+      JPanel c = (JPanel)getContentPane();
+
+      // This panel has a null layout!
+      final JPanel nullLayoutPanel = new JPanel();
+      nullLayoutPanel.setLayout(null);
+      c.add("Center", nullLayoutPanel);
+
+      // set the bounds of the outer panel manually
+      // when using the null layout!
+      nullLayoutPanel.add(outer);
+      outer.setBounds(defaultX, defaultY, defaultW, defaultH);
+
+      JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+      final JTextField x = new JTextField(""+defaultX, 3);
+      final JTextField y = new JTextField(""+defaultY, 3);
+      final JTextField w = new JTextField(""+defaultW, 3);
+      final JTextField h = new JTextField(""+defaultH, 3);
+      JButton b = new JButton("Resize");
+      b.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               try {
+                  outer.setBounds(
+                        Integer.parseInt(x.getText()),
+                        Integer.parseInt(y.getText()),
+                        Integer.parseInt(w.getText()),
+                        Integer.parseInt(h.getText())
+                  );
+                  outer.revalidate();
+               } catch(Exception ex) {}
+            }
+         }
+      );
+      controlPanel.add(x);
+      controlPanel.add(y);
+      controlPanel.add(w);
+      controlPanel.add(h);
+      controlPanel.add(b);
+      c.add("South", controlPanel);
+   }
+
+    public static void main(String[] argv) {
+       SwingUtilities.invokeLater(new Runnable() {
+          public void run() {
+             Test p = new Test();
+             p.setSize(300, 200);
+             p.setVisible(true);
+          }
+      });
+    }
+}

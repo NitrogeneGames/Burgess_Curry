@@ -1,0 +1,19 @@
+package burgess.main;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+public class BasicFrame extends JFrame{
+	private JPanel myPanel;
+	
+	public BasicFrame(){
+		myPanel = new JPanel();
+		this.add(myPanel);
+	}
+	public void addComponent(JComponent c) {
+		myPanel.add(c);
+	}
+	public JPanel getFrame() {
+		return myPanel;
+	}
+	
+}

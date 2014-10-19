@@ -1,0 +1,17 @@
+package burgess.main;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+
+public class Start {
+	public static void main(String [ ] args) {
+		BasicFrame centralGUI = new BasicFrame();
+		  centralGUI.setTitle("Client");
+		  centralGUI.setSize(300,300);
+		  centralGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		  centralGUI.setVisible(true);
+		  centralGUI.addBasicLabel("TEST", 10, 10);
+
+	}
+}
